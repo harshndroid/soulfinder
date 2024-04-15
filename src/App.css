@@ -1,4 +1,12 @@
 html, body, #root, #root>div {
   height: 100%;
-  background-color: #ebf2f2;
+  background-color: #f4a46003;
+  /* background-color: #ebf2f229; */
+  /* background-image: linear-gradient(#e3ebeb, #9fb1bd);; */
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
 }

@@ -23,7 +23,7 @@ const TopBar = ({ title, content, onClickContent }) => {
             width: 35,
             height: 35,
             borderRadius: '50%',
-            // backgroundColor: '#ddd',
+            boxShadow: 'rgba(0, 0, 0, 0.5) 3px 3px 6px -5px',
             objectFit: 'cover',
             marginRight: 10,
           }}

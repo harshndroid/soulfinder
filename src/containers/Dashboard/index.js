@@ -109,7 +109,7 @@ const Dashboard = () => {
       {users.length === 0 && (
         <Button
           title="Search nearby travellers"
-          style={{ margin: 10 }}
+          style={{ position: 'absolute', bottom: 40 }}
           onClick={() => {
             // fetch('http://localhost:3001/nearbyTravellers', {
             fetch('https://node-mongodb-6r4w.onrender.com/nearbyTravellers', {
@@ -163,6 +163,7 @@ const Dashboard = () => {
           <div
             key={ele.phone}
             style={{
+              boxShadow: 'rgba(0, 0, 0, 0.5) 3px 3px 6px -5px',
               border: '1px solid #e9e4e4',
               borderRadius: '8px',
               width: '90%',
@@ -202,7 +203,6 @@ const Dashboard = () => {
                   left: 38,
                   fontSize: 12,
                   fontWeight: 'bold',
-                  // border: '1px solid green',
                   padding: 2,
                   borderRadius: 4,
                   backgroundColor:
@@ -214,12 +214,16 @@ const Dashboard = () => {
               >
                 {Date.now() - ele.lastSeenAt <= 1800000 ? 'Active' : 'Inactive'}
               </div>
-              <div>
+              <div style={{ fontSize: 14 }}>
                 {ele.name}, {ele.age}
               </div>
             </div>
             <div style={{ flex: 1 }}></div>
-            <Button title="Call" style={{ flex: 1 }} />
+            <Button
+              title="Call"
+              style={{ flex: 1 }}
+              onClick={() => (window.location.href = `tel:+91${ele.phone}`)}
+            />
           </div>
         ))}
       </div>
