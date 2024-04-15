@@ -20,14 +20,11 @@ const Otp = () => {
         }}
       />
       <p style={Styles.title}>
-        Join with others and
-        <br />
-        make travel economical
+        Join with others <br /> and make travel economical
       </p>
       <div style={Styles.inputWrapper}>
         <input
           type="number"
-          autoFocus
           style={Styles.input}
           placeholder="Enter any dummy OTP"
           onChange={(e) => setOtp(e.target.value)}

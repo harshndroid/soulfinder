@@ -20,7 +20,6 @@ const Login = () => {
       <div style={Styles.inputWrapper}>
         <input
           type="number"
-          autoFocus
           style={Styles.input}
           placeholder="Enter phone number"
           onChange={(e) => setNum(e.target.value)}
