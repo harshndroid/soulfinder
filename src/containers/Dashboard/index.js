@@ -142,7 +142,7 @@ const Dashboard = () => {
                     otherUsers[key].location.latitude,
                     otherUsers[key].location.longitude
                   );
-                  if (distance <= 12000) usersInRange.push(otherUsers[key]);
+                  if (distance) usersInRange.push(otherUsers[key]);
                 }
                 setUsers(usersInRange);
               })
