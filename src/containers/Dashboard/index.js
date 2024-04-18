@@ -17,9 +17,6 @@ const Dashboard = () => {
   const [showUpdateUserModal, setShowUpdateUserModal] = useState(false);
 
   const user = LocalStorageService.getItem(StorageConstants.USER);
-  const token = user?.token;
-  let headers = {};
-  headers.Authorization = `Bearer ${token}`;
 
   useEffect(() => {
     if (navigator.geolocation) {

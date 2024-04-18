@@ -15,9 +15,6 @@ const Modal = ({ photo, open, onClose }) => {
   const navigate = useNavigate();
 
   const user = LocalStorageService.getItem(StorageConstants.USER);
-  const token = user?.token;
-  let headers = {};
-  headers.Authorization = `Bearer ${token}`;
 
   const [name, setName] = useState('');
   const [age, setAge] = useState(0);
