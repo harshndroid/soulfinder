@@ -5,6 +5,7 @@ import LocalStorageService from '../../services/LocalStorageService';
 import Button from '../../components/Button';
 import TopBar from '../../components/TopBar';
 import Modal from '../../components/Modal';
+import ApiConstants from '../../constants/ApiConstants';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -27,8 +28,8 @@ const Dashboard = () => {
           longitude: position.coords.longitude,
         });
 
-        // fetch('http://localhost:3001/init', {
-        fetch('https://node-mongodb-6r4w.onrender.com/init', {
+        // fetch(`${process.env.REACT_APP_API_URL_LOCAL}${ApiConstants.INIT}`, {
+        fetch(`${process.env.REACT_APP_API_URL}${ApiConstants.INIT}`, {
           method: 'POST',
           headers: {
             ...headers,
@@ -111,13 +112,18 @@ const Dashboard = () => {
           title="Search nearby travellers"
           style={{ position: 'absolute', bottom: 40 }}
           onClick={() => {
-            // fetch('http://localhost:3001/nearbyTravellers', {
-            fetch('https://node-mongodb-6r4w.onrender.com/nearbyTravellers', {
-              method: 'GET',
-              headers: {
-                ...headers,
-              },
-            })
+            // fetch(
+            //   `${process.env.REACT_APP_API_URL_LOCAL}${ApiConstants.NEAR_BY_TRAVELLERS}`,
+            //   {
+            fetch(
+              `${process.env.REACT_APP_API_URL}${ApiConstants.NEAR_BY_TRAVELLERS}`,
+              {
+                method: 'GET',
+                headers: {
+                  ...headers,
+                },
+              }
+            )
               .then((res) => {
                 if (res.status === 200 || res.status === 201) return res.json();
                 else if (res.status === 404) {

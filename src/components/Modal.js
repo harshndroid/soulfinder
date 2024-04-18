@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import S3FileUpload from 'react-s3';
 import awsConfig from '../config/aws';
+import ApiConstants from '../constants/ApiConstants';
 
 const Modal = ({ photo, open, onClose }) => {
   const navigate = useNavigate();
@@ -114,20 +115,25 @@ const Modal = ({ photo, open, onClose }) => {
           title="Save"
           style={{ margin: 10 }}
           onClick={() => {
-            // fetch('http://localhost:3001/updateUserProfile', {
-            fetch('https://node-mongodb-6r4w.onrender.com/updateUserProfile', {
-              method: 'POST',
-              headers: {
-                ...headers,
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                ...(updatedPhoto && { photoUrl: updatedPhoto }),
-                ...(name && { name }),
-                ...(age && { age }),
-              }),
-            })
+            // fetch(
+            //   `${process.env.REACT_APP_API_URL_LOCAL}${ApiConstants.UPDATE_USER_PROFILE}`,
+            //   {
+            fetch(
+              `${process.env.REACT_APP_API_URL}${ApiConstants.UPDATE_USER_PROFILE}`,
+              {
+                method: 'POST',
+                headers: {
+                  ...headers,
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  ...(updatedPhoto && { photoUrl: updatedPhoto }),
+                  ...(name && { name }),
+                  ...(age && { age }),
+                }),
+              }
+            )
               .then((res) => {
                 if (res.status === 200 || res.status === 201) return res.json();
                 else if (res.status === 401 || res.status === 404) {

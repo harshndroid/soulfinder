@@ -5,6 +5,7 @@ import LocalStorageService from '../../services/LocalStorageService';
 import Styles from '../../styles/AuthPageStyles';
 import Button from '../../components/Button';
 import Background from '../../assets/background.webp';
+import ApiConstants from '../../constants/ApiConstants';
 
 const Otp = () => {
   const [otp, setOtp] = useState('');
@@ -35,8 +36,10 @@ const Otp = () => {
           style={Styles.button}
           onClick={() => {
             // call login backend API and get jwt token
-            // fetch('http://localhost:3001/login', {
-            fetch('https://node-mongodb-6r4w.onrender.com/login', {
+            // fetch(
+            //   `${process.env.REACT_APP_API_URL_LOCAL}${ApiConstants.LOGIN}`,
+            //   {
+            fetch(`${process.env.REACT_APP_API_URL}${ApiConstants.LOGIN}`, {
               method: 'POST',
               headers: {
                 Accept: 'application/json',
