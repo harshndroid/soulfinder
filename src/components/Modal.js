@@ -104,7 +104,7 @@ const Modal = ({ photo, open, onClose }) => {
           type="number"
           style={{ margin: 8 }}
           id="outlined-basic"
-          label="Age "
+          label="Age"
           variant="outlined"
           size="small"
           defaultValue={user.age}
