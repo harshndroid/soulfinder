@@ -21,7 +21,7 @@ export default {
     marginTop: 50,
     fontStyle: 'italic',
   },
-  inputWrapper: {
+  bottomWrapper: {
     display: 'flex',
     flexDirection: 'column',
     position: 'fixed',
