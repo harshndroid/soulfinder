@@ -6,6 +6,7 @@ import Styles from '../../styles/AuthPageStyles';
 import Button from '../../components/Button';
 import Background from '../../assets/background.webp';
 import ApiConstants from '../../constants/ApiConstants';
+import ApiService from '../../services/ApiService';
 
 const Otp = () => {
   const [otp, setOtp] = useState('');
@@ -36,17 +37,9 @@ const Otp = () => {
           style={Styles.button}
           onClick={() => {
             // call login backend API and get jwt token
-            // fetch(
-            //   `${process.env.REACT_APP_API_URL_LOCAL}${ApiConstants.LOGIN}`,
-            //   {
-            fetch(`${process.env.REACT_APP_API_URL}${ApiConstants.LOGIN}`, {
-              method: 'POST',
-              headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ phone: location.state.num }),
-            })
+
+            const requestPayload = { phone: location.state.num };
+            ApiService.fetchApi(ApiConstants.LOGIN, 'POST', requestPayload)
               .then((res) => {
                 if (res.status === 200 || res.status === 201) return res.json();
                 else {

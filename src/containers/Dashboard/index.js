@@ -6,6 +6,7 @@ import Button from '../../components/Button';
 import TopBar from '../../components/TopBar';
 import Modal from '../../components/Modal';
 import ApiConstants from '../../constants/ApiConstants';
+import ApiService from '../../services/ApiService';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -27,24 +28,16 @@ const Dashboard = () => {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         });
-
-        // fetch(`${process.env.REACT_APP_API_URL_LOCAL}${ApiConstants.INIT}`, {
-        fetch(`${process.env.REACT_APP_API_URL}${ApiConstants.INIT}`, {
-          method: 'POST',
-          headers: {
-            ...headers,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
+        const requestPayload = {
+          id: user?.userId,
+          location: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
           },
-          body: JSON.stringify({
-            id: user?.userId,
-            location: {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-            },
-            lastSeenAt: Date.now(),
-          }),
-        })
+          lastSeenAt: Date.now(),
+        };
+
+        ApiService.fetchApi(ApiConstants.INIT, 'POST', requestPayload)
           .then((res) => {
             if (res.status === 200 || res.status === 201) return res.json();
             else if (res.status === 401 || res.status === 404) {
@@ -112,18 +105,7 @@ const Dashboard = () => {
           title="Search nearby travellers"
           style={{ position: 'absolute', bottom: 40 }}
           onClick={() => {
-            // fetch(
-            //   `${process.env.REACT_APP_API_URL_LOCAL}${ApiConstants.NEAR_BY_TRAVELLERS}`,
-            //   {
-            fetch(
-              `${process.env.REACT_APP_API_URL}${ApiConstants.NEAR_BY_TRAVELLERS}`,
-              {
-                method: 'GET',
-                headers: {
-                  ...headers,
-                },
-              }
-            )
+            ApiService.fetchApi(ApiConstants.NEAR_BY_TRAVELLERS, 'GET')
               .then((res) => {
                 if (res.status === 200 || res.status === 201) return res.json();
                 else if (res.status === 404) {

@@ -9,6 +9,7 @@ import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import S3FileUpload from 'react-s3';
 import awsConfig from '../config/aws';
 import ApiConstants from '../constants/ApiConstants';
+import ApiService from '../services/ApiService';
 
 const Modal = ({ photo, open, onClose }) => {
   const navigate = useNavigate();
@@ -115,24 +116,15 @@ const Modal = ({ photo, open, onClose }) => {
           title="Save"
           style={{ margin: 10 }}
           onClick={() => {
-            // fetch(
-            //   `${process.env.REACT_APP_API_URL_LOCAL}${ApiConstants.UPDATE_USER_PROFILE}`,
-            //   {
-            fetch(
-              `${process.env.REACT_APP_API_URL}${ApiConstants.UPDATE_USER_PROFILE}`,
-              {
-                method: 'POST',
-                headers: {
-                  ...headers,
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  ...(updatedPhoto && { photoUrl: updatedPhoto }),
-                  ...(name && { name }),
-                  ...(age && { age }),
-                }),
-              }
+            const requestPayload = {
+              ...(updatedPhoto && { photoUrl: updatedPhoto }),
+              ...(name && { name }),
+              ...(age && { age }),
+            };
+            ApiService.fetchApi(
+              ApiConstants.UPDATE_USER_PROFILE,
+              'POST',
+              requestPayload
             )
               .then((res) => {
                 if (res.status === 200 || res.status === 201) return res.json();
